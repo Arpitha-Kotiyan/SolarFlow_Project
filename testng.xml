@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Test suite">
+  <listeners> 
+	  <listener class-name="Safearth_CommonFiles.Listeners"/>
+	  </listeners>
+	  <test name="logintest testing">
+    <classes>
+      <class name="Safearth_CommonFiles.LoginPageTestCases"/>
+      <class name="Safearth_CommonFiles.BaseTest"/>
+    </classes>
+	  </test>
+    </suite><!-- Suits-->
+  
