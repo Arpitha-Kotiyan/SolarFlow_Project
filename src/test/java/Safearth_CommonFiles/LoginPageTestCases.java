@@ -22,9 +22,9 @@ import com.mailosaur.models.MessageSearchParams;
 import com.mailosaur.models.SearchCriteria;
 
 public class LoginPageTestCases extends BaseTest {
-	String apiKey = "xbSxLyfgDYULM39uY1Hr6oc5BHMbxdAf";
-    String serverId = "jedfm1s4";
-    String serverDomain = "jedfm1s4.mailosaur.net";
+	String apiKey = "RtPotNNWkSbsScL76S6q7Ha1VdB2dtbz";
+    String serverId = "8wtvl4wx";
+    String serverDomain = "8wtvl4wx.mailosaur.net";
     public String getRandomEmail() {
     	return "user"+ System.currentTimeMillis()+ "@"+serverDomain;
     }
@@ -96,8 +96,8 @@ public class LoginPageTestCases extends BaseTest {
 		    driver.findElement(By.xpath("//input[@id='otp']")).sendKeys(otp);
 		       WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		       wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@type='submit']"))).click();
-		     driver.findElement(By.xpath("//a[normalize-space()='Save for Later']")).click();
-				driver.findElement(By.xpath("//span[normalize-space()='Yes, save for Later']")).click();
+		     //driver.findElement(By.xpath("//a[normalize-space()='Save for Later']")).click();
+				//driver.findElement(By.xpath("//span[normalize-space()='Yes, save for Later']")).click();
 		       
 		       
 		       java.util.List<WebElement> elements2 = driver.findElements(By.cssSelector("span.ant-upload"));
@@ -176,35 +176,34 @@ public class LoginPageTestCases extends BaseTest {
 				WebElement nextButton = driver.findElement(By.xpath("//button[@class='ant-btn ant-btn-primary next-btn']"));
 				
 				nextButton.click();
-				/*Thread.sleep(5000);
-				driver.findElement(By.xpath("//p[normalize-space()='Project Site Image']")).sendKeys("C:\\Users\\arpit\\OneDrive\\Desktop\\Picture1.png");
-				driver.findElement(By.xpath("//input[@id='name']")).sendKeys("demo demo");
-				driver.findElement(By.xpath("//input[@id='size']")).sendKeys("250");
-				WebElement dropdownMenu_model = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ant-select-item ant-select-item-option ant-select-item-option-active")));
-		        WebElement secondOption_model = dropdownMenu_model.findElements(By.cssSelector(".ant-select-item-option-content")).get(1);
-		        secondOption_model.click();
-				driver.findElement(By.xpath("//input[@id='location']")).sendKeys("Punjab");
-				driver.findElement(By.xpath("//input[@id='modulesUsed']")).sendKeys("demoo");
-				driver.findElement(By.xpath("//input[@id='invertersUsed']")).sendKeys("String");
-				driver.findElement(By.xpath("//input[@id='kw']")).sendKeys("20000");*/
-				WebElement uploadButton = driver.findElement(By.xpath("//p[normalize-space()='Project Site Image']"));
-				uploadButton.click();
-
+				Thread.sleep(1000);
+				
 				WebElement uploadInput = driver.findElement(By.xpath("//input[@type='file']"));
-				uploadInput.sendKeys("C:\\Users\\arpit\\OneDrive\\Pictures\\moon-in-space.jpg");
+				((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';", uploadInput);
+				uploadInput.sendKeys("C:\\Users\\arpit\\OneDrive\\Desktop\\moon-in-space.jpg");
 
+
+                               Thread.sleep(5000);
 				    WebElement nameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='name']")));
 				    nameInput.sendKeys("demo demo");
 
 				    WebElement sizeInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='size']")));
 				    sizeInput.sendKeys("250");
+				    WebElement option1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='ant-select-selector']")));
+			        option1.click();
+			        WebElement dropdownMenu1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='ant-select-item ant-select-item-option']")));
+			       
+			        dropdownMenu1.click();
 
-				    WebElement dropdownMenu_model = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ant-select-item.ant-select-item-option.ant-select-item-option-active")));
-				    WebElement secondOption_model = dropdownMenu_model.findElements(By.cssSelector(".ant-select-item-option-content")).get(1);
-				    secondOption_model.click();
+				    
 
 				    WebElement locationInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='location']")));
 				    locationInput.sendKeys("Punjab");
+				    WebElement cod = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@id='date']")));
+				       cod.click();
+				       driver.findElement(By.xpath("//button[@class='ant-picker-header-prev-btn']")).click();
+				    WebElement date_select1=driver.findElement(By.xpath(" //div[normalize-space()='19']"));
+				       date_select1.click();
 
 				    WebElement modulesUsedInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='modulesUsed']")));
 				    modulesUsedInput.sendKeys("demoo");
@@ -214,448 +213,21 @@ public class LoginPageTestCases extends BaseTest {
 
 				    WebElement kwInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='kw']")));
 				    kwInput.sendKeys("20000");
+				    
 				    driver.findElement(By.xpath("//button[@type='submit']")).click();
+				    Thread.sleep(1000);
+				    driver.findElement(By.xpath("//span[normalize-space()='Next']")).click();
 
 				    driver.findElement(By.xpath("//button[@type='button']")).click();
-				    driver.findElement(By.xpath(" //button[@title='SKIP']")).click();
-				    //driver.findElement(By.xpath("//button[@class='ant-btn ant-btn-default go-back-btn']")).click();
-				    driver.findElement(By.xpath("//p[normalize-space()='My Projects']")).click();
-				    driver.findElement(By.xpath("//button[@title='SKIP']")).click();
-				  
-				 
+				    try {
+				        
+				        WebElement completeMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[normalize-space()='Complete!']")));
+				        if (completeMessage.isDisplayed()) {
+				            System.out.println("Signup is completed successfully.");
+				        }
+				    } catch (TimeoutException e) {
+				        System.out.println("Signup failed or is not yet completed.");
+				    }}}}
 				
-		}
-	}
-
-	
-	
 		
-
-	@Test
-	public void LoginPageComapnyForm() throws InterruptedException {
-		String TagName="button";
-		java.util.List<WebElement> element1=driver.findElements(By.xpath("//button[normalize-space()='Login']"));
-		//for(int i=0;i<element1.size();i++) {
-			//WebElement ele=element1.get(i);
-		element1.get(0).click();
-		//System.out.println("Index: " + i + ", Text: " + ele.getText());
-		//input[@id='login-form_email']
-		driver.findElement(By.xpath("//input[@id='login-form_email']")).sendKeys("user1723184475481@jedfm1s4.mailosaur.net");
-		driver.findElement(By.xpath("//input[@id='login-form_password']")).sendKeys("solar1234");
-		driver.findElement(By.xpath("//span[@class='ant-checkbox-inner']")).click();
-		driver.findElement(By.xpath("//button[@type='submit']")).click();
-		 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
-		WebElement nextButton = driver.findElement(By.xpath("//button[@class='ant-btn ant-btn-primary next-btn']"));
-			//nextButton.click();
-			//Thread.sleep(5000);
-		 java.util.List<WebElement> elements2 = driver.findElements(By.cssSelector("span.ant-upload"));
-		   	
-			for (int i = 0; i < elements2.size(); i++) {
-				Thread.sleep(5000);
-		        WebElement element3 = elements2.get(i);
-		        System.out.println("Index: " + i + ", Text: " + element3.getText());
-		        
-		    }
-			if (elements2.size() > 2) {
-	            List<WebElement> fileInputs = driver.findElements(By.cssSelector("input[type='file']"));
-	            if (fileInputs.size() > 1) {
-	                WebElement e11 = fileInputs.get(0);
-	                e11.sendKeys("C:\\Users\\arpit\\OneDrive\\Pictures\\moon-in-space.jpg");
-	                WebElement e3 = fileInputs.get(1);
-	                e3.sendKeys("C:\\Users\\arpit\\OneDrive\\Documents\\Demo_file.txt");
-	            } else {
-	                System.out.println("Not enough file input elements found.");
-	            }
-	        }
-			Thread.sleep(5000);
-			driver.findElement(By.xpath("//input[@id='founded']")).sendKeys("2017");
-			driver.findElement(By.xpath("//input[@id='regionalOffice']")).sendKeys("Bengaluru");
-			driver.findElement(By.xpath("//input[@id='headOffice']")).sendKeys("Bengaluru");
-			driver.findElement(By.xpath("//input[@id='website']")).sendKeys("www.demo.com");
-			driver.findElement(By.xpath("//textarea[@id='description']")).sendKeys("this is a demo project");
-			driver.findElement(By.xpath("//input[@id='turnover']")).sendKeys("5000");
-			driver.findElement(By.xpath("//input[@id='employees']")).sendKeys("66");
-			driver.findElement(By.xpath("//input[@id='capacity']")).sendKeys("1000");
-			WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(20));
-			WebElement option = wait1.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='ant-select ant-select-in-form-item ant-select-status-success ant-select-multiple ant-select-show-arrow ant-select-show-search']")));
-	        option.click();
-	        WebElement dropdownMenu = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ant-select-dropdown")));
-	        WebElement secondOption = dropdownMenu.findElements(By.cssSelector(".ant-select-item-option")).get(1);
-	        secondOption.click();
-	        driver.findElement(By.xpath("//input[@id='minimum']")).sendKeys("100");
-			driver.findElement(By.xpath("//input[@id='maximum']")).sendKeys("1000");
-			driver.findElement(By.xpath("//textarea[@id='flagshipProjects']")).sendKeys("THIS IS FOR TESTING PURPOSE");
-			driver.findElement(By.xpath("//input[@id='balance_sheet']")).sendKeys("C:\\Users\\arpit\\OneDrive\\Desktop\\DEMO_UPLOAD.docx");
-			driver.findElement(By.xpath("//input[@value='Commercial']")).click();
-			driver.findElement(By.xpath("//input[@id='projectMaxSize']")).sendKeys("2000");
-			 WebElement dropdownArrow = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='middle-card']//div[1]//div[1]//div[2]//div[1]//div[1]//span[1]//span[1]//span[1]//div[1]//div[1]")));
-			 dropdownArrow.click();
-			 List<WebElement> w5= driver.findElements(By.xpath("(//div[@class='ant-select-item-option-content'])"));
-			 w5.get(1);
-			 WebElement element_max = driver.findElement(By.xpath("//div[@title='kW']"));
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_max);
-				
-			 driver.findElement(By.xpath("//input[@id='projectMinSize']")).sendKeys("100");
-			 WebElement dropdownArrow1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//body/div[@id='root']/div[1]/div[1]/div[2]/div[1]/div[3]/div[1]/div[1]/div[3]/div[1]/form[1]/div[3]/div[1]/div[2]/div[1]/div[1]/span[1]/span[1]/span[1]")));
-			 dropdownArrow1.click();
-			 List<WebElement> w6= driver.findElements(By.xpath("(//div[@class='ant-select-item-option-content'])"));
-			 w6.get(0);
-			 WebElement element_min = driver.findElement(By.xpath("//div[@class='ant-select-item ant-select-item-option ant-select-item-option-active']//div[@class='ant-select-item-option-content'][normalize-space()='kW']"));
-				((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_min);
-			//driver.findElement(By.xpath("//input[@value='OPEX']")).click();
-			WebElement w1= driver.findElement(By.xpath("(//div[@class='ant-select-selector'])[5]"));
-			w1.click();
-			WebElement element6 = driver.findElement(By.xpath("//div[@title='Assam']"));
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", element6);
-			WebElement w2= driver.findElement(By.xpath("(//div[@class='ant-select-selector'])[6]"));
-			w2.click();
-			WebElement element5 = driver.findElement(By.xpath("//div[@title='Bihar']"));
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", element5);
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//input[@id='international']")).click();
-			WebElement w3= driver.findElement(By.xpath("(//div[@class='ant-select-selector'])[7]"));
-			w3.click();
-			Thread.sleep(5000);
-			WebElement element7 = driver.findElement(By.xpath("//div[@title='Benin']"));
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", element7);
-			//driver.findElement(By.xpath("//a[normalize-space()='Save for Later']")).click();
-			//driver.findElement(By.xpath("	//span[normalize-space()='Yes, save for Later']")).click();
-			
-			WebElement nextButton1 = driver.findElement(By.xpath("//button[@class='ant-btn ant-btn-primary next-btn']"));
-			
-			nextButton1.click();
-			Thread.sleep(5000);
-			driver.findElement(By.xpath("//p[normalize-space()='Project Site Image']")).sendKeys("C:\\Users\\arpit\\OneDrive\\Desktop\\Picture1.png");
-			driver.findElement(By.xpath("//input[@id='name']")).sendKeys("demo demo");
-			driver.findElement(By.xpath("//input[@id='size']")).sendKeys("250");
-			WebElement dropdownMenu_model = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ant-select-item ant-select-item-option ant-select-item-option-active")));
-	        WebElement secondOption_model = dropdownMenu_model.findElements(By.cssSelector(".ant-select-item-option-content")).get(1);
-	        secondOption_model.click();
-			driver.findElement(By.xpath("//input[@id='location']")).sendKeys("Punjab");
-			driver.findElement(By.xpath("//input[@id='modulesUsed']")).sendKeys("demoo");
-			driver.findElement(By.xpath("//input[@id='invertersUsed']")).sendKeys("String");
-			driver.findElement(By.xpath("//input[@id='kw']")).sendKeys("20000");
-			 WebElement uploadButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='site-image-wrapper']")));
-			    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", uploadButton);
-			    uploadButton.sendKeys("C:\\Users\\arpit\\OneDrive\\Pictures\\moon-in-space.jpg");
-
-			    WebElement nameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='name']")));
-			    nameInput.sendKeys("demo demo");
-
-			    WebElement sizeInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='size']")));
-			    sizeInput.sendKeys("250");
-
-			    WebElement dropdownMenu_model1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ant-select-item.ant-select-item-option.ant-select-item-option-active")));
-			    WebElement secondOption_model1 = dropdownMenu_model.findElements(By.cssSelector(".ant-select-item-option-content")).get(1);
-			    secondOption_model1.click();
-
-			    WebElement locationInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='location']")));
-			    locationInput.sendKeys("Punjab");
-
-			    WebElement modulesUsedInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='modulesUsed']")));
-			    modulesUsedInput.sendKeys("demoo");
-
-			    WebElement invertersUsedInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='invertersUsed']")));
-			    invertersUsedInput.sendKeys("String");
-
-			    WebElement kwInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='kw']")));
-			    kwInput.sendKeys("20000");
-			    driver.findElement(By.xpath("//button[@type='submit']")).click();
-
-			    driver.findElement(By.xpath("//button[@type='button']")).click();
-			    driver.findElement(By.xpath(" //button[@title='SKIP']")).click();
-			    //driver.findElement(By.xpath("//button[@class='ant-btn ant-btn-default go-back-btn']")).click();
-			    driver.findElement(By.xpath("//p[normalize-space()='My Projects']")).click();
-			    driver.findElement(By.xpath("//button[@title='SKIP']")).click();
-			  
-			 
-			
-	}
-	       //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='ant-btn ant-btn-primary next-btn']"))).click();   
-	       /*driver.findElement(By.xpath("//div[@class='site-image-wrapper']")).sendKeys("C:\\Users\\arpit\\OneDrive\\Pictures\\moon-in-space.jpg");
-	       driver.findElement(By.xpath("//input[@id='name']")).sendKeys("demo demo");
-			driver.findElement(By.xpath("//input[@id='size']")).sendKeys("250");
-			WebElement dropdownMenu_model = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ant-select-item ant-select-item-option ant-select-item-option-active")));
-	        WebElement secondOption_model = dropdownMenu_model.findElements(By.cssSelector(".ant-select-item-option-content")).get(1);
-	        secondOption_model.click();
-			driver.findElement(By.xpath("//input[@id='location']")).sendKeys("Punjab");
-			driver.findElement(By.xpath("//input[@id='modulesUsed']")).sendKeys("demoo");
-			driver.findElement(By.xpath("//input[@id='invertersUsed']")).sendKeys("String");
-			driver.findElement(By.xpath("//input[@id='kw']")).sendKeys("20000");
-			driver.findElement(By.xpath("//button[@class='ant-btn ant-btn-primary next-btn']")).click();*/
-			/*WebElement uploadButton = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='site-image-wrapper']")));
-		    ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", uploadButton);
-		    uploadButton.sendKeys("C:\\Users\\arpit\\OneDrive\\Pictures\\moon-in-space.jpg");
-
-		    WebElement nameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='name']")));
-		    nameInput.sendKeys("demo demo");
-
-		    WebElement sizeInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='size']")));
-		    sizeInput.sendKeys("250");
-
-		    WebElement dropdownMenu_model = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ant-select-item.ant-select-item-option.ant-select-item-option-active")));
-		    WebElement secondOption_model = dropdownMenu_model.findElements(By.cssSelector(".ant-select-item-option-content")).get(1);
-		    secondOption_model.click();
-
-		    WebElement locationInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='location']")));
-		    locationInput.sendKeys("Punjab");
-
-		    WebElement modulesUsedInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='modulesUsed']")));
-		    modulesUsedInput.sendKeys("demoo");
-
-		    WebElement invertersUsedInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='invertersUsed']")));
-		    invertersUsedInput.sendKeys("String");
-
-		    WebElement kwInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='kw']")));
-		    kwInput.sendKeys("20000");
-		    driver.findElement(By.xpath("//button[@type='submit']")).click();
-
-		    driver.findElement(By.xpath("//button[@type='button']")).click();
-		    driver.findElement(By.xpath(" //button[@title='SKIP']")).click();
-		    //driver.findElement(By.xpath("//button[@class='ant-btn ant-btn-default go-back-btn']")).click();
-		    driver.findElement(By.xpath("//p[normalize-space()='My Projects']")).click();
-		    driver.findElement(By.xpath("//button[@title='SKIP']")).click();*/
-			
-		
-	//}
-			
-	@Test
-		public void FirstTimeLoginRegistration() throws InterruptedException {
-		String TagName="button";
-		java.util.List<WebElement> element1=driver.findElements(By.xpath("//button[normalize-space()='Login']"));
-		element1.get(0).click();
-		driver.findElement(By.xpath("//input[@id='login-form_email']")).sendKeys("user1723184475481@jedfm1s4.mailosaur.net");
-		driver.findElement(By.xpath("//input[@id='login-form_password']")).sendKeys("solar1234");
-		driver.findElement(By.xpath("//span[@class='ant-checkbox-inner']")).click();
-		driver.findElement(By.xpath("//button[@type='submit']")).click();
-		//driver.findElement(By.xpath("//a[normalize-space()='Save for Later']")).click();
-		
-		java.util.List<WebElement> elements2 = driver.findElements(By.cssSelector("span.ant-upload"));
 	
-		for (int i = 0; i < elements2.size(); i++) {
-			Thread.sleep(5000);
-	        WebElement element3 = elements2.get(i);
-	        System.out.println("Index: " + i + ", Text: " + element3.getText());
-	        
-	    }
-		if (elements2.size() > 2) {
-            List<WebElement> fileInputs = driver.findElements(By.cssSelector("input[type='file']"));
-            if (fileInputs.size() > 1) {
-                WebElement e1 = fileInputs.get(0);
-                e1.sendKeys("C:\\Users\\arpit\\OneDrive\\Pictures\\moon-in-space.jpg");
-                WebElement e3 = fileInputs.get(1);
-                e3.sendKeys("C:\\Users\\arpit\\OneDrive\\Documents\\Demo_file.txt");
-            } else {
-                System.out.println("Not enough file input elements found.");
-            }
-        }
-		Thread.sleep(5000);
-		driver.findElement(By.xpath("//input[@id='founded']")).sendKeys("2017");
-		driver.findElement(By.xpath("//input[@id='regionalOffice']")).sendKeys("Bengaluru");
-		driver.findElement(By.xpath("//input[@id='headOffice']")).sendKeys("Bengaluru");
-		driver.findElement(By.xpath("//input[@id='website']")).sendKeys("www.demo.com");
-		driver.findElement(By.xpath("//textarea[@id='description']")).sendKeys("this is a demo project");
-		driver.findElement(By.xpath("//input[@id='turnover']")).sendKeys("5000");
-		driver.findElement(By.xpath("//input[@id='employees']")).sendKeys("66");
-		driver.findElement(By.xpath("//input[@id='capacity']")).sendKeys("1000");
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-		WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='ant-select ant-select-in-form-item ant-select-status-success ant-select-multiple ant-select-show-arrow ant-select-show-search']")));
-        option.click();
-        WebElement dropdownMenu = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ant-select-dropdown")));
-        WebElement secondOption = dropdownMenu.findElements(By.cssSelector(".ant-select-item-option")).get(1);
-        secondOption.click();
-        driver.findElement(By.xpath("//input[@id='minimum']")).sendKeys("100");
-		driver.findElement(By.xpath("//input[@id='maximum']")).sendKeys("1000");
-		driver.findElement(By.xpath("//textarea[@id='flagshipProjects']")).sendKeys("THIS IS FOR TESTING PURPOSE");
-		driver.findElement(By.xpath("//input[@id='balance_sheet']")).sendKeys("C:\\Users\\arpit\\OneDrive\\Desktop\\DEMO_UPLOAD.docx");
-		driver.findElement(By.xpath("//input[@value='Commercial']")).click();
-		driver.findElement(By.xpath("//input[@id='projectMaxSize']")).sendKeys("2000");
-		 WebElement dropdownArrow = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='middle-card']//div[1]//div[1]//div[2]//div[1]//div[1]//span[1]//span[1]//span[1]//div[1]//div[1]")));
-		 dropdownArrow.click();
-		 List<WebElement> w5= driver.findElements(By.xpath("(//div[@class='ant-select-item-option-content'])"));
-		 w5.get(1);
-		 WebElement element_max = driver.findElement(By.xpath("//div[@title='kW']"));
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_max);
-			
-		 driver.findElement(By.xpath("//input[@id='projectMinSize']")).sendKeys("100");
-		 WebElement dropdownArrow1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//body/div[@id='root']/div[1]/div[1]/div[2]/div[1]/div[3]/div[1]/div[1]/div[3]/div[1]/form[1]/div[3]/div[1]/div[2]/div[1]/div[1]/span[1]/span[1]/span[1]")));
-		 dropdownArrow1.click();
-		 List<WebElement> w6= driver.findElements(By.xpath("(//div[@class='ant-select-item-option-content'])"));
-		 w6.get(0);
-		 WebElement element_min = driver.findElement(By.xpath("//div[@class='ant-select-item ant-select-item-option ant-select-item-option-active']//div[@class='ant-select-item-option-content'][normalize-space()='kW']"));
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_min);
-		//driver.findElement(By.xpath("//input[@value='OPEX']")).click();
-		WebElement w1= driver.findElement(By.xpath("(//div[@class='ant-select-selector'])[5]"));
-		w1.click();
-		WebElement element6 = driver.findElement(By.xpath("//div[@title='Assam']"));
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element6);
-		WebElement w2= driver.findElement(By.xpath("(//div[@class='ant-select-selector'])[6]"));
-		w2.click();
-		WebElement element5 = driver.findElement(By.xpath("//div[@title='Bihar']"));
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element5);
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//input[@id='international']")).click();
-		WebElement w3= driver.findElement(By.xpath("(//div[@class='ant-select-selector'])[7]"));
-		w3.click();
-		Thread.sleep(5000);
-		WebElement element7 = driver.findElement(By.xpath("//div[@title='Benin']"));
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();", element7);
-		WebElement nextButton = driver.findElement(By.xpath("//button[@class='ant-btn ant-btn-primary next-btn']"));
-		nextButton.click();
-		Thread.sleep(5000);
-		driver.findElement(By.xpath("//p[normalize-space()='Project Site Image']")).sendKeys("C:\\Users\\arpit\\OneDrive\\Desktop\\Picture1.png");
-		driver.findElement(By.xpath("//input[@id='name']")).sendKeys("demo demo");
-		driver.findElement(By.xpath("//input[@id='size']")).sendKeys("250");
-		WebElement dropdownMenu_model = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ant-select-item ant-select-item-option ant-select-item-option-active")));
-        WebElement secondOption_model = dropdownMenu_model.findElements(By.cssSelector(".ant-select-item-option-content")).get(1);
-        secondOption_model.click();
-		driver.findElement(By.xpath("//input[@id='location']")).sendKeys("Punjab");
-		driver.findElement(By.xpath("//input[@id='modulesUsed']")).sendKeys("demoo");
-		driver.findElement(By.xpath("//input[@id='invertersUsed']")).sendKeys("String");
-		driver.findElement(By.xpath("//input[@id='kw']")).sendKeys("20000");
-		driver.findElement(By.xpath("//button[@type='submit']")).click();
-
-	    driver.findElement(By.xpath("//button[@type='button']")).click();
-	    driver.findElement(By.xpath(" //button[@title='SKIP']")).click();
-	    //driver.findElement(By.xpath("//button[@class='ant-btn ant-btn-default go-back-btn']")).click();
-	    driver.findElement(By.xpath("//p[normalize-space()='My Projects']")).click();
-	    driver.findElement(By.xpath("//button[@title='SKIP']")).click();
-		
-		
-	}
-	@Test
-	public void FirstTimeLoginRegistration_withoutDetails() {
-		java.util.List<WebElement> element1=driver.findElements(By.xpath("//button[normalize-space()='Login']"));
-		element1.get(0).click();
-		driver.findElement(By.xpath("//input[@id='login-form_email']")).sendKeys("bexelara@clip.lat");
-		driver.findElement(By.xpath("//input[@id='login-form_password']")).sendKeys("solar1234");
-		driver.findElement(By.xpath("//span[@class='ant-checkbox-inner']")).click();
-		driver.findElement(By.xpath("//button[@type='submit']")).click();
-		WebElement nextButton = driver.findElement(By.xpath("//button[@class='ant-btn ant-btn-primary next-btn']"));
-		nextButton.click();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        List<By> errorLocators = List.of(
-                By.xpath("//div[contains(text(),'Please enter founded year!')]"),
-                By.xpath("//div[contains(text(),'Please enter head office!')]"),
-                By.xpath("//div[contains(text(),'Please upload a brochure file!')]"),
-                By.xpath("//div[contains(text(),'Please enter capacity of projects installed!')]"),
-                By.xpath("//div[@class='ant-form-item-explain-error'][normalize-space()='Please select a project type that would interest you!']"));
-        boolean allErrorsDisplayed = true;
-        for (By locator : errorLocators) {
-            WebElement errorMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-            if (!errorMessage.isDisplayed()) {
-                allErrorsDisplayed = false;
-                System.out.println("Test Failed: Error message for " + locator + " is not displayed.");
-            }
-        }
-
-        if (allErrorsDisplayed) {
-            System.out.println("Test Passed: All error messages are displayed as expected.");
-        }
-	}
-	
-     
-    }
-	
-	    @Test
-	    public void demo1() throws InterruptedException {
-	    	String TagName="button";
-			java.util.List<WebElement> element1=driver.findElements(By.xpath("//button[normalize-space()='Login']"));
-			element1.get(0).click();
-	    	driver.findElement(By.xpath("//input[@id='login-form_email']")).sendKeys("user1723184475481@jedfm1s4.mailosaur.net");
-			driver.findElement(By.xpath("//input[@id='login-form_password']")).sendKeys("solar1234");
-			driver.findElement(By.xpath("//span[@class='ant-checkbox-inner']")).click();
-			driver.findElement(By.xpath("//button[@type='submit']")).click();
-			 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(50));
-			
-			 WebElement dropdownArrow = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='middle-card']//div[1]//div[1]//div[2]//div[1]//div[1]//span[1]//span[1]//span[1]//div[1]//div[1]")));
-			 dropdownArrow.click();
-			 List<WebElement> w5= driver.findElements(By.xpath("(//div[@class='ant-select-item-option-content'])"));
-			 w5.get(1);
-			 WebElement element_max = driver.findElement(By.xpath("//div[@title='kW']"));
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_max);
-				
-			 driver.findElement(By.xpath("//input[@id='projectMinSize']")).sendKeys("100");
-			 WebElement dropdownArrow1 = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//body/div[@id='root']/div[1]/div[1]/div[2]/div[1]/div[3]/div[1]/div[1]/div[3]/div[1]/form[1]/div[3]/div[1]/div[2]/div[1]/div[1]/span[1]/span[1]/span[1]")));
-			 dropdownArrow1.click();
-			 List<WebElement> w6= driver.findElements(By.xpath("(//div[@class='ant-select-item-option-content'])"));
-			 w6.get(0);
-			 WebElement element_min = driver.findElement(By.xpath("//div[@class='ant-select-item ant-select-item-option ant-select-item-option-active']//div[@class='ant-select-item-option-content'][normalize-space()='kW']"));
-				((JavascriptExecutor) driver).executeScript("arguments[0].click();", element_min);
-			//driver.findElement(By.xpath("//input[@value='OPEX']")).click();
-			WebElement w1= driver.findElement(By.xpath("(//div[@class='ant-select-selector'])[5]"));
-			w1.click();
-			WebElement element6 = driver.findElement(By.xpath("//div[@title='Assam']"));
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", element6);
-			WebElement w2= driver.findElement(By.xpath("(//div[@class='ant-select-selector'])[6]"));
-			w2.click();
-			WebElement element5 = driver.findElement(By.xpath("//div[@title='Bihar']"));
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", element5);
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//input[@id='international']")).click();
-			WebElement w3= driver.findElement(By.xpath("(//div[@class='ant-select-selector'])[7]"));
-			w3.click();
-			Thread.sleep(5000);
-			WebElement nextButton = driver.findElement(By.xpath("//button[@class='ant-btn ant-btn-primary next-btn']"));
-			
-			nextButton.click();
-			
-			WebElement uploadButton = driver.findElement(By.xpath("//p[normalize-space()='Project Site Image']"));
-			uploadButton.click();
-
-			WebElement uploadInput = driver.findElement(By.xpath("//input[@type='file']"));
-			uploadInput.sendKeys("C:\\Users\\arpit\\OneDrive\\Pictures\\moon-in-space.jpg");
-
-		    WebElement nameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='name']")));
-		    nameInput.sendKeys("demo demo");
-
-		    WebElement sizeInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='size']")));
-		    sizeInput.sendKeys("250");
-		    //WebElement option = wait1.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='ant-select ant-select-in-form-item ant-select-status-success ant-select-multiple ant-select-show-arrow ant-select-show-search']")));
-		    //option.click();
-		    //WebElement dropdownMenu = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".ant-select-dropdown")));
-		    //WebElement secondOption = dropdownMenu.findElements(By.cssSelector(".ant-select-item-option")).get(1);
-
-		    WebElement dropdownMenu_model1 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='ant-select ant-select-in-form-item ant-select-single ant-select-show-arrow']")));
-		    WebElement secondOption_model = dropdownMenu_model1.findElements(By.cssSelector(".ant-select-item-option-content")).get(1);
-		    secondOption_model.click();
-
-		    WebElement locationInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='location']")));
-		    locationInput.sendKeys("Punjab");
-
-		    WebElement modulesUsedInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='modulesUsed']")));
-		    modulesUsedInput.sendKeys("demoo");
-
-		    WebElement invertersUsedInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='invertersUsed']")));
-		    invertersUsedInput.sendKeys("String");
-
-		    WebElement kwInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@id='kw']")));
-		    kwInput.sendKeys("20000");
-		    driver.findElement(By.xpath("//button[@type='submit']")).click();
-
-		    driver.findElement(By.xpath("//button[@type='button']")).click();
-		    driver.findElement(By.xpath(" //button[@title='SKIP']")).click();
-		    //driver.findElement(By.xpath("//button[@class='ant-btn ant-btn-default go-back-btn']")).click();
-		    driver.findElement(By.xpath("//p[normalize-space()='My Projects']")).click();
-		    driver.findElement(By.xpath("//button[@title='SKIP']")).click();
-		  
-	    }
-	    
-	    
-
-	        
-	        
-	}
-	
-	
-	    
-
-	    
-
-	    
-	        
-
-
-
-	
-
